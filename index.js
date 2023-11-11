@@ -35,7 +35,10 @@ async function run() {
 
     // const roomCollection = client.db('roomData').collection('rooms');
     const detailsDataCollection = client.db("roomData").collection("details");
-    const bookingCollection = client.db("roomData").collection("bookings")
+    const bookingCollection = client.db("roomData").collection("bookings");
+    const reviewCollection = client.db("roomData").collection("reviews");
+
+
 
     // app.get('/rooms', async(req, res) =>{
     //   const cursor = roomCollection.find();
@@ -84,31 +87,39 @@ async function run() {
 
   
 
-    app.patch('/bookings/:id', async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) };
-      const updatedBooking = req.body;
-      console.log(updatedBooking);
-      const updateDoc = {
-          $set: {
-              status: updatedBooking.status
-          },
-      };
-      const result = await bookingCollection.updateOne(filter, updateDoc);
-      res.send(result);
-  })
-
+  //   app.patch('/bookings/:id', async (req, res) => {
+  //     const id = req.params.id;
+  //     const filter = { _id: new ObjectId(id) };
+  //     const updatedBooking = req.body;
+  //     console.log(updatedBooking);
+  //     const updateDoc = {
+  //         $set: {
+  //             status: updatedBooking.status
+  //         },
+  //     };
+  //     const result = await bookingCollection.updateOne(filter, updateDoc);
+  //     res.send(result);
+  // })
 
 
 
     app.delete('/bookings/:id', async (req, res) => {
       const id = req.params.id;
-      console.log(id);
-      const query = {_id: new ObjectId(id) }
+      const query = {_id: (id) }
       const result = await bookingCollection.deleteOne(query);
-      res.send(result);
       console.log(result);
+      res.send(result);
     })
+
+
+
+    // app.post("/reviews", async (req, res) => {
+    //   const review = req.body;
+    //   const result = await reviewCollection.insertOne(review);
+    //   res.send(result);
+    // });
+
+
 
 
 
